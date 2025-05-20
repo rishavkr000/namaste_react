@@ -1,43 +1,25 @@
-/*
-*
-*   <div id="parent">
-*       <div id="child1">
-*           <h1> I am h1 tag </h1>
-*           <h2> I am h2 tag </h2>
-*       </div>
-*       <div id="child2">
-*           <h3> I am h3 tag </h3>
-*           <h4> I am h4 tag </h4>
-*       </div>
-*   </div>
-*
-*
-*   ReactElement(Object) => HTML(Browser Understands)
-*
-*/
-
-// This is the code React code
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 const parent = React.createElement(
     "div",
     { id: "parent" },
     [React.createElement(
         "div",
-        { id: "child1" }, [
-        React.createElement("h1", {}, "I am h1 tag"),
-        React.createElement("h2", {}, "I am h2 tag")
+        { id: "child1", key: "child1" }, [
+        React.createElement("h1", {key: "h1"}, "I am h1 tag"),
+        React.createElement("h2", {key: "h2"}, "I am h2 tag")
     ]
     ),
     React.createElement(
         "div",
-        { id: "child2" }, [
-        React.createElement("h3", {}, "I am h3 tag"),
-        React.createElement("h4", {}, "I am h4 tag")
+        { id: "child2", key: "child2" }, [
+        React.createElement("h3", {key: "h3"}, "I am h3 tag"),
+        React.createElement("h4", {key: "h4"}, "I am h4 tag")
     ]
     )
 ]
 );
-console.log(parent); // object
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(parent);
