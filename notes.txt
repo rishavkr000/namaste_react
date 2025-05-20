@@ -1,0 +1,7 @@
+VS Code Feature – Emmet
+Emmet is a powerful feature in VS Code that helps generate boilerplate code quickly and efficiently.
+
+Example:
+In an HTML file, if you type html:5 and press Tab/Enter, Emmet will automatically expand it into the basic HTML5 template.
+
+
