@@ -1,0 +1,39 @@
+1. What is CDN (Content Delivery Network)?
+=> A CDN is a globally distributed network of servers that delivers web content (like JS files, CSS, images) to users based on their location.
+=> CDN (Content Delivery Network) एक नेटवर्क होता है geographically distributed servers का, जो static content (जैसे JS files, CSS, images, videos) को तेज़ी से लोड करने में मदद करता है।
+
+    * Main Benefits of CDN:
+        * Fast content delivery (low latency)
+        * Reduced load on the main server
+        * Improved website performance
+        * Cached content from nearest server location 
+
+
+2. What is crossorigin?
+=> The crossorigin attribute is used in HTML tags (like <script>, <img>, etc.) when you are loading resources from a different domain (a cross-origin). It tells the browser how to handle CORS (Cross-Origin Resource Sharing) and whether credentials (like cookies) should be included.
+
+3. What is npm?
+=> npm is the default package manager for Node.js. It is used to install, update, and manage JavaScript packages or libraries.
+
+4. What is package.json?
+=> package.json is the configuration file used in a Node.js project. It contains metadata about the project (like name, version, description, etc.) and lists all the dependencies (libraries/packages) that your project needs.
+
+5. What is package-lock.json?
+=> This file records the exact versions of installed dependencies.
+=> It ensures that the same versions are installed every time (helps in consistency across machines/environments).
+=> Auto-generated when you run npm install.
+
+6. What are Transitive Dependencies?
+=> Transitive dependencies are the dependencies of your dependencies. For example, if you install a package like express, it may internally depend on other packages, which are automatically installed by npm.
+
+7. What is caret ^ and tilde ~ in package.json?
+=> 
+
+8. In a project, how many package.json files do we have?
+=> Our main project has one package.json.
+=> But every installed dependency (inside node_modules) also has its own package.json.
+
+9. Why is node_modules not pushed to GitHub?
+=> The node_modules folder contains thousands of files and is often very large.
+=> It is automatically recreated using package.json and package-lock.json via npm install.
+=> Hence, it is ignored using .gitignore to keep the repository clean and lightweight.

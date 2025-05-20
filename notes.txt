@@ -5,3 +5,22 @@ Example:
 In an HTML file, if you type html:5 and press Tab/Enter, Emmet will automatically expand it into the basic HTML5 template.
 
 
+package.json is the configuration for npm.
+npm is a package manager.
+
+There are two types of dependencies we are install in the app.
+1. Normal Dependency :- This dependency are used in developement as well as production.
+2. Dev Dependency :- It is generally required in a development phase.
+
+Transitive Dependencies
+
+What is package.json?
+What is package-lock.json?
+Difference between package.json and package-lock.json.
+What is caret (^) and tilda (~) in package.json?
+
+Q. In whole project, how many package.json do we have?
+Ans. Every dependencies has own package.json. (check node-modules)
+
+
+Why node modules is not push on github?
