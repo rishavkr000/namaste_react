@@ -28,10 +28,6 @@
     list-style: none;
 }
 
-.search {
-    margin: 20px 0;
-}
-
 .search-btn {
     margin-left: 10px;
 }
@@ -56,4 +52,13 @@
     width: 190px;
     height: 150px;
     padding: 5px;
+}
+
+.top-div {
+    display: flex;
+}
+
+.filter-btn {
+    margin: 20px 10px;
+    cursor: pointer;
 }

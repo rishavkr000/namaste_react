@@ -1,7 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-const resList = [
+let resList = [
   {
     card: {
       card: {
@@ -173,7 +170,7 @@ const resList = [
             "Chinese",
             "North Indian",
           ],
-          avgRating: 4.4,
+          avgRating: 3.9,
           parentId: "332",
           avgRatingString: "4.4",
           totalRatingsString: "9.3K+",
@@ -371,7 +368,7 @@ const resList = [
             "Sweets",
             "Beverages",
           ],
-          avgRating: 4.3,
+          avgRating: 3.6,
           parentId: "469102",
           avgRatingString: "4.3",
           totalRatingsString: "47K+",
@@ -634,81 +631,4 @@ const resList = [
   },
 ];
 
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo">
-        <img
-          className="img-logo"
-          src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png?nwm=1&nws=1&industry=All&sf=&txt_keyword="
-          alt="App Logo"
-        />
-      </div>
-      <div className="list">
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Cart</li>
-          <li>Contact Us</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const Body = () => {
-  return (
-    <div className="body">
-      {/* search */}
-      {/* Restaurent Container */}
-      {/* Restaurent Card */}
-
-      <div className="search">
-        <input className="input" type="text" />
-        <button className="search-btn">Search</button>
-      </div>
-      <div className="res-container">
-        {resList.map((res) => (
-          <RestaurentCard key={res.card.card.info.id} resData={res}/>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const RestaurentCard = (props) => {
-  const { resData } = props;
-  const { name, avgRating, cloudinaryImageId, costForTwo, cuisines, sla } =
-    resData?.card?.card?.info;
-  return (
-    <div className="res-card">
-      <img
-        className="res-logo"
-        src={
-          "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-          cloudinaryImageId
-        }
-        alt="Meghana Food Logo"
-      />
-      <h3>{name}</h3>
-      <h4>{avgRating}</h4>
-      <h4>{costForTwo}</h4>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>{sla.deliveryTime} minutes</h4>
-    </div>
-  );
-};
-
-const AppComp = () => {
-  return (
-    <div className="main">
-      <Header />
-      <Body />
-      {/* Footer */}
-    </div>
-  );
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(<AppComp />);
+export default resList;
