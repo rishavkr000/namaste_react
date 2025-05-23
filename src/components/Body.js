@@ -1,81 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/resList";
-
-let listOfRestaurants2 = [
-  {
-    card: {
-      card: {
-        info: {
-          id: "30532",
-          name: "Hotel Empire",
-          cloudinaryImageId: "10f8b483521b9359d9c8fcd37f23c9d3",
-          costForTwo: "₹450 for two",
-          cuisines: ["Kebabs", "Biryani"],
-          avgRating: 4.2,
-          sla: {
-            deliveryTime: 47,
-          },
-          isOpen: true,
-        },
-      },
-    },
-  },
-  {
-    card: {
-      card: {
-        info: {
-          id: "30533",
-          name: "Meghana Biryani",
-          cloudinaryImageId: "10f8b483521b9359d9c8fcd37f23c9d3",
-          costForTwo: "₹450 for two",
-          cuisines: ["Kebabs", "Biryani"],
-          avgRating: 4.5,
-          sla: {
-            deliveryTime: 47,
-          },
-          isOpen: true,
-        },
-      },
-    },
-  },
-  {
-    card: {
-      card: {
-        info: {
-          id: "30534",
-          name: "KFC",
-          cloudinaryImageId: "10f8b483521b9359d9c8fcd37f23c9d3",
-          costForTwo: "₹450 for two",
-          cuisines: ["Kebabs", "Biryani"],
-          avgRating: 3.5,
-          sla: {
-            deliveryTime: 47,
-          },
-          isOpen: true,
-        },
-      },
-    },
-  },
-];
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurents] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurents] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
-  return (
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      );
+      const json = await res.json();
+
+      setListOfRestaurents(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  return listOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="top-div">
         <div className="search">
-          <input className="input" type="text" />
-          <button className="filter-btn">Search</button>
+          <input
+            className="input"
+            // type="text"
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+            }}
+          />
+          <button
+            className="filter-btn"
+            onClick={() => {
+              console.log(searchValue);
+              const filteredRestaurant = listOfRestaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchValue.toLowerCase())
+              );
+              setFilteredRestaurant(filteredRestaurant);
+            }}
+          >
+            Search
+          </button>
         </div>
         <div className="filter">
           <button
             className="filter-btn"
             onClick={() => {
               const filteredList = listOfRestaurants.filter((res) => {
-                console.log(typeof res.card.card.info.avgRating);
-                return res.card.card.info.avgRating > 4;
+                return res?.info?.avgRating > 4.5;
               });
               setListOfRestaurents(filteredList);
             }}
@@ -85,8 +67,8 @@ const Body = () => {
         </div>
       </div>
       <div className="res-container">
-        {listOfRestaurants.map((res) => (
-          <RestaurantCard key={res.card.card.info.id} resData={res} />
+        {filteredRestaurant.map((res) => (
+          <RestaurantCard key={res?.info?.id} resData={res} />
         ))}
       </div>
     </div>
