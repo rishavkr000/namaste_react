@@ -33,7 +33,7 @@ const Body = () => {
         <div className="search">
           <input
             className="input"
-            // type="text"
+            type="text"
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);
