@@ -7,15 +7,15 @@ class User extends React.Component {
     this.state = {
       userInfo: {},
     };
-    console.log(this.props.name + " Child Constructor");
+    // console.log(this.props.name + " Child Constructor");
   }
 
   async componentDidMount() {
-    console.log(this.props.name + " Child Component Did Mount called");
+    // console.log(this.props.name + " Child Component Did Mount called");
 
     const data = await fetch(" https://api.github.com/users/rishavkr000");
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
 
     this.setState({
       userInfo: json,
@@ -23,7 +23,7 @@ class User extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("Component will update called.")
+    // console.log("Component will update called.")
     this.timer = setInterval(() => {
       console.log("SetInterval called")
     }, 1000)
@@ -35,7 +35,7 @@ class User extends React.Component {
   }
 
   render() {
-    console.log(this.props.name + " Child Render");
+    // console.log(this.props.name + " Child Render");
     const { name, bio, location, avatar_url } = this.state.userInfo;
     return (
       <div>

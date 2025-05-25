@@ -1,36 +1,17 @@
-import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import Recommended from "./Recommended";
-import { MENU_URL } from "../utils/constants";
 import { useParams } from "react-router";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
-  const [menuItem, setMenuItem] = useState(null);
   const { resId } = useParams();
-  console.log("Res Id: ", resId)
-
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  const fetchMenu = async () => {
-    try {
-      const res = await fetch(MENU_URL + resId);
-      const json = await res.json();
-      console.log(json);
-      console.log(json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR);
-      setMenuItem(
-        json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-          ?.card
-      );
-      setResInfo(json?.data?.cards[2]?.card?.card?.info);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  if (resInfo === null) return <Shimmer />
+  const { resInfo, menuItem } = useRestaurantMenu(resId);
+  const onlineStatus = useOnlineStatus();
+  console.log(onlineStatus)
+  
+  if (onlineStatus === false) return <h1>Looks like you are offline, Please check your internet connection.</h1>
+  if (resInfo === null) return <Shimmer />;
 
   return (
     <div className="restaurant">
