@@ -5,35 +5,43 @@ class User extends React.Component {
     super(props);
 
     this.state = {
-      count: 0,
-      count1: 1,
+      userInfo: {},
     };
     console.log(this.props.name + " Child Constructor");
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log(this.props.name + " Child Component Did Mount called");
+
+    const data = await fetch(" https://api.github.com/users/rishavkr000");
+    const json = await data.json();
+    console.log(json);
+
+    this.setState({
+      userInfo: json,
+    });
+  }
+
+  componentDidUpdate() {
+    console.log("Component will update called.")
+    this.timer = setInterval(() => {
+      console.log("SetInterval called")
+    }, 1000)
+  }
+
+  componentWillUnmount(){
+    console.log("Component Will unmount called.");
+    clearInterval(this.timer);
   }
 
   render() {
     console.log(this.props.name + " Child Render");
-    const { name, area, location } = this.props;
+    const { name, bio, location, avatar_url } = this.state.userInfo;
     return (
       <div>
-        <h1>Count: {this.state.count}</h1>
-        <h1>Count1: {this.state.count1}</h1>
-        <button
-          onClick={() => {
-            this.setState({
-              count: this.state.count + 1,
-              count1: this.state.count1 + 10,
-            });
-          }}
-        >
-          Count Increment
-        </button>
+        <img src={avatar_url} />
         <h2>Name: {name}</h2>
-        <h3>Area: {area}</h3>
+        <h3>Bio: {bio}</h3>
         <h4>Location: {location}</h4>
       </div>
     );
