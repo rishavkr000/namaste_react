@@ -3,11 +3,13 @@ import Recommended from "./Recommended";
 import { Link, useParams } from "react-router";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const { resInfo } = useRestaurantMenu(resId);
   const onlineStatus = useOnlineStatus();
+  const [showItem, setShowItem] = useState(null);
 
   // console.log(resInfo?.cards[2]?.card?.card?.info);
   // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR)
@@ -71,8 +73,13 @@ const RestaurantMenu = () => {
             Search
           </button>
         </div>
-        {categories.map((category) => (
-          <Recommended key={category?.card?.card?.categoryId} menuItem={category?.card?.card} />
+        {categories.map((category, index) => (
+          <Recommended 
+            key={category?.card?.card?.categoryId} 
+            menuItem={category?.card?.card} 
+            showItem={index === showItem}
+            setShowItem={() => setShowItem(prev => prev === index ? null : index)}
+          />
         ))}
       </div>
     </div>

@@ -1,13 +1,11 @@
 import { useState } from "react";
 import ItemInfo from "./ItemInfo";
 
-const Recommended = ({ menuItem }) => {
-  const [showItems, setShowItems] = useState(false);
+const Recommended = ({ menuItem, showItem, setShowItem }) => {
   // console.log(menuItem);
-  
 
   const handleClick= () => {
-    setShowItems(!showItems);
+    setShowItem();
   }
 
   return (
@@ -17,9 +15,9 @@ const Recommended = ({ menuItem }) => {
           <span className="font-bold text-lg p-2">
             {menuItem?.title} ({menuItem?.itemCards?.length})
           </span>
-          <span className="p-2">🔽</span>
+          <span className="p-2">{showItem ? "⬆️" : "⬇️"}</span>
         </div>
-        {showItems && <ItemInfo data={menuItem?.itemCards} />}
+        {showItem && <ItemInfo data={menuItem?.itemCards} />}
       </div>
     </div>
   );
