@@ -1,8 +1,9 @@
 import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = ({ resData }) => {
-  const { name, avgRating, cloudinaryImageId, costForTwo, cuisines, sla } = resData?.info;
-
+  const { name, avgRating, cloudinaryImageId, costForTwo, cuisines, sla } =
+    resData?.info;
+  // console.log("Res Data: ", resData)
   return (
     <div className="m-4 p-4 w-[250px] bg-gray-100 rounded-lg hover:bg-gray-200">
       <img
@@ -17,6 +18,19 @@ const RestaurantCard = ({ resData }) => {
       <h4>{sla?.deliveryTime} minutes</h4>
     </div>
   );
+};
+
+// Higher Order Component
+
+export const withOpenedLabel = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <>
+        <label className="absolute bg-black text-white m-6 p-1 rounded-lg">Open</label>
+        <RestaurantCard {...props}/>
+      </>
+    );
+  };
 };
 
 export default RestaurantCard;

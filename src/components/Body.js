@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withOpenedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
 
@@ -10,14 +10,25 @@ const Body = () => {
 
   useEffect(() => {
     fetchData();
+    // console.log(listOfRestaurants);
   }, []);
+
+  const RestautantCardOpen = withOpenedLabel(RestaurantCard);
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`);
+      const res = await fetch(
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      );
       const json = await res.json();
-      setListOfRestaurents(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setListOfRestaurents(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      setFilteredRestaurant(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
     } catch (error) {
       console.error("Fetch error:", error);
     }
@@ -37,7 +48,8 @@ const Body = () => {
               setSearchValue(e.target.value);
             }}
           />
-          <button className="px-4 py-2 bg-green-100 m-4 rounded-lg"
+          <button
+            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
               const filteredRestaurant = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -64,7 +76,13 @@ const Body = () => {
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurant.map((res) => (
-          <Link key={res?.info?.id} to={"/restaurants/"+ res?.info?.id}><RestaurantCard resData={res} /></Link>
+          <Link key={res?.info?.id} to={"/restaurants/" + res?.info?.id}>
+            {res?.info?.isOpen ? (
+              <RestautantCardOpen resData={res} />
+            ) : (
+              <RestaurantCard resData={res} />
+            )}
+          </Link>
         ))}
       </div>
     </div>

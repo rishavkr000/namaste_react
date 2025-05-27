@@ -10,9 +10,18 @@ const RestaurantMenu = () => {
   const onlineStatus = useOnlineStatus();
 
   // console.log(resInfo?.cards[2]?.card?.card?.info);
-  // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card)
+  // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR)
 
-  const menuItem = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+  const categories =
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+      (c) =>
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+  // console.log(categories)
+
+  const menuItem =
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
   const resData = resInfo?.cards[2]?.card?.card?.info;
 
   if (onlineStatus === false)
@@ -62,7 +71,9 @@ const RestaurantMenu = () => {
             Search
           </button>
         </div>
-        <Recommended menuItem={menuItem}/>
+        {categories.map((category) => (
+          <Recommended key={category?.card?.card?.categoryId} menuItem={category?.card?.card} />
+        ))}
       </div>
     </div>
   );
