@@ -39,10 +39,10 @@ class User extends React.Component {
     const { name, bio, location, avatar_url } = this.state.userInfo;
     return (
       <div>
-        <img src={avatar_url} />
         <h2>Name: {name}</h2>
         <h3>Bio: {bio}</h3>
         <h4>Location: {location}</h4>
+        <img src={avatar_url} className="w-48 ml-10"/>
       </div>
     );
   }
