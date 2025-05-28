@@ -10,24 +10,28 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 const AppLayout = () => {
-  const [userName, setUserName] = useState()
+  const [userName, setUserName] = useState();
 
   useEffect(() => {
     const data = {
-      name: "Rishav Kumar"
+      name: "Rishav Kumar",
     };
-    setUserName(data.name)
-  }, [])
+    setUserName(data.name);
+  }, []);
 
   return (
-    <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
-    <div className="main">
-      <Header />
-      <Outlet />
-    </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="main">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -45,7 +49,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <Suspense fallback={<Shimmer />}><About /></Suspense>,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",

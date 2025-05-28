@@ -1,10 +1,22 @@
-const ItemInfo = ({ data }) => {
+import { useDispatch } from "react-redux";
+import { addItems, removeItems } from "../utils/cartSlice";
+
+const ItemInfo = ({ data, buttonType }) => {
   const FOOD_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
-//   console.log(data);
+
+  const dispatch = useDispatch();
+  const handleAddItem = (item) => {
+    dispatch(addItems(item));
+  };
+
+  const handleRemoveItem = (index) => {
+    dispatch(removeItems(index))
+  }
+
   return (
     <div>
-      {data?.map((item) => (
+      {data?.map((item, index) => (
         <div
           key={item?.card?.info?.id}
           className="border-b border-gray-400 p-2"
@@ -38,9 +50,21 @@ const ItemInfo = ({ data }) => {
                 alt={item?.card?.info?.name}
                 className="w-28 h-28 object-cover rounded-lg mx-auto"
               />
-              <button className="mt-2 px-4 py-1 text-green-600 font-bold border border-gray-400 rounded shadow-sm hover:shadow-md">
-                ADD
-              </button>
+              {buttonType === "Add" ? (
+                <button
+                  className="mt-2 px-4 py-1 text-green-600 font-bold border border-gray-400 rounded shadow-sm hover:shadow-md"
+                  onClick={() => handleAddItem(item)}
+                >
+                  ADD
+                </button>
+              ) : (
+                <button
+                  className="mt-2 px-4 py-1 text-green-600 font-bold border border-gray-400 rounded shadow-sm hover:shadow-md"
+                  onClick={() => handleRemoveItem(index)}
+                >
+                  Remove
+                </button>
+              )}
             </div>
           </div>
         </div>
