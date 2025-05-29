@@ -1,4 +1,4 @@
-const { render, screen } = require("@testing-library/react");
+import { render, screen } from "@testing-library/react";
 import Contact from "../Contact";
 import "@testing-library/jest-dom";
 
@@ -17,7 +17,7 @@ test("Should the Button loaded inside Contact Component", () => {
 test("Should the input name loaded inside the Contact component", () => {
   render(<Contact />);
   const input = screen.getByPlaceholderText("Name");    // Querying
-  console.log(input)  // When we do console log there it returns the JSX Element
+  // console.log(input)  // When we do console log there it returns the JSX Element
   expect(input).toBeInTheDocument();
 });
 
