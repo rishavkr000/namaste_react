@@ -15,9 +15,10 @@ const ItemInfo = ({ data, buttonType }) => {
   }
 
   return (
-    <div>
+    <div >
       {data?.map((item, index) => (
         <div
+          data-testid="foodItems"
           key={item?.card?.info?.id}
           className="border-b border-gray-400 p-2"
         >

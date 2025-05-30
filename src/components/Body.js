@@ -37,7 +37,7 @@ const Body = () => {
     }
   };
 
-  return listOfRestaurants.length === 0 ? (
+  return listOfRestaurants?.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -45,6 +45,7 @@ const Body = () => {
         <div className="search m-4 p-4">
           <input
             type="text"
+            data-testid= "searchInput"
             className="border border-solid border-black"
             value={searchValue}
             onChange={(e) => {
@@ -54,8 +55,8 @@ const Body = () => {
           <button
             className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
-              const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res.info.name.toLowerCase().includes(searchValue.toLowerCase())
+              const filteredRestaurant = listOfRestaurants?.filter((res) =>
+                res?.info?.name.toLowerCase().includes(searchValue.toLowerCase())
               );
               setFilteredRestaurant(filteredRestaurant);
             }}
@@ -67,8 +68,9 @@ const Body = () => {
           <button
             className="px-4 py-2 bg-gray-100 rounded-lg"
             onClick={() => {
-              const filteredList = listOfRestaurants.filter((res) => {
-                return res?.info?.avgRating > 4.5;
+             
+              const filteredList = listOfRestaurants?.filter((res) => {
+                return res?.info?.avgRating > 4;
               });
               setListOfRestaurents(filteredList);
             }}
@@ -87,7 +89,7 @@ const Body = () => {
         </div>
       </div>
       <div className="flex flex-wrap">
-        {filteredRestaurant.map((res) => (
+        {filteredRestaurant?.map((res) => (
           <Link key={res?.info?.id} to={"/restaurants/" + res?.info?.id}>
             {res?.info?.isOpen ? (
               <RestautantCardOpen resData={res} />
